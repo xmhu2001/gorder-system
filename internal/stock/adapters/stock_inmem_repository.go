@@ -1,6 +1,7 @@
 package adapters
 
 import (
+	"context"
 	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
 	domain "github.com/xmhu2001/gorder-system/stock/domain/stock"
 	"sync"
@@ -11,10 +12,10 @@ type MemoryStockRepository struct {
 	store map[string]*orderpb.Item
 }
 
-func NewMemoryStockRepository(lock *sync.RWMutex, store map[string]*orderpb.Item) *MemoryStockRepository {
+func NewMemoryStockRepository() *MemoryStockRepository {
 	return &MemoryStockRepository{
 		lock:  &sync.RWMutex{},
-		store: make(map[string]*orderpb.Item),
+		store: stub,
 	}
 }
 
