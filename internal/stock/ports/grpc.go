@@ -2,6 +2,8 @@ package ports
 
 import (
 	context "context"
+	"github.com/sirupsen/logrus"
+	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
 	"github.com/xmhu2001/gorder-system/stock/app"
 
 	"github.com/xmhu2001/gorder-system/common/genproto/stockpb"
@@ -16,11 +18,19 @@ func NewGRPCServer(app app.Application) *GRPCServer {
 }
 
 func (G GRPCServer) GetItems(ctx context.Context, request *stockpb.GetItemsRequest) (*stockpb.GetItemsResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	logrus.Info("rpc_request_in, stock.GetItems")
+	return nil, nil
 }
 
 func (G GRPCServer) CheckIfItemsInStock(ctx context.Context, request *stockpb.CheckIfItemsInStockRequest) (*stockpb.CheckIfItemsInStockResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	logrus.Info("rpc_request_in, stock.CheckIfItemsInStock")
+	defer func() {
+		logrus.Info("rpc_request_out, stock.CheckIfItemsInStock")
+	}()
+	fakeData := []*orderpb.Item{
+		{
+			ID: "fake-id-CheckIfItemsInStock",
+		},
+	}
+	return &stockpb.CheckIfItemsInStockResponse{Items: fakeData}, nil
 }

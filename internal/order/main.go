@@ -24,7 +24,9 @@ func main() {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	application := service.NewApplication(ctx)
+	application, cleanup := service.NewApplication(ctx)
+	// 在主函数里defer 关闭所有连接
+	defer cleanup()
 
 	go server.RunGRPCServer(serviceName, func(s *grpc.Server) {
 		svc := ports.NewGRPCServer(application)

@@ -28,7 +28,8 @@ func main() {
 	switch serverType {
 	case "grpc":
 		server.RunGRPCServer(serviceName, func(s *grpc.Server) {
-			stockpb.RegisterStockServiceServer(s, ports.NewGRPCServer(application))
+			svc := ports.NewGRPCServer(application)
+			stockpb.RegisterStockServiceServer(s, svc)
 		})
 	case "http":
 		// TODO
