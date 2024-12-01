@@ -20,16 +20,29 @@ func NewMemoryStockRepository() *MemoryStockRepository {
 }
 
 var stub = map[string]*orderpb.Item{
-	"item_id": {
+	"item_1": {
 		ID:       "foo_item",
 		Name:     "stub item",
+		Quantity: 1000,
+		PriceID:  "stub_item_price_id",
+	},
+	"item_2": {
+		ID:       "item_2",
+		Name:     "stub item 2",
+		Quantity: 1000,
+		PriceID:  "stub_item_2_price_id",
+	},
+	"item_3": {
+		ID:       "item_3",
+		Name:     "stub item 3",
 		Quantity: 1000,
 		PriceID:  "stub_item_price_id",
 	},
 }
 
 func (m MemoryStockRepository) GetItems(_ context.Context, ids []string) ([]*orderpb.Item, error) {
-	m.lock.RLock() // get 只需要加 读 锁
+	// get 只需要加 读 锁
+	m.lock.RLock()
 	defer m.lock.RUnlock()
 	var (
 		res     []*orderpb.Item
@@ -45,6 +58,6 @@ func (m MemoryStockRepository) GetItems(_ context.Context, ids []string) ([]*ord
 	if len(res) == len(ids) {
 		return res, nil
 	}
-	return nil, domain.NotFoundError{Missing: missing}
+	return res, domain.NotFoundError{Missing: missing}
 
 }
