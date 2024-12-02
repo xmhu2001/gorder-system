@@ -7,6 +7,7 @@ import (
 	"github.com/xmhu2001/gorder-system/common/config"
 	"github.com/xmhu2001/gorder-system/common/logging"
 	"github.com/xmhu2001/gorder-system/common/server"
+	"github.com/xmhu2001/gorder-system/payment/infrastructure/consumer"
 )
 
 func init() {
@@ -30,6 +31,8 @@ func main() {
 		_ = closeConn()
 		_ = ch.Close()
 	}()
+
+	go consumer.NewConsumer().Listen(ch)
 
 	paymentHandler := NewPaymentHandler()
 	switch serverType {
