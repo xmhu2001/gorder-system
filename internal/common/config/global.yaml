@@ -11,5 +11,4 @@ stock:
   http-addr: 127.0.0.1:8081
   grpc-addr: 127.0.0.1:5003
 
-# STRIPE_KEY: sk_test_51QRSBHEnyEnePsWo6x1Co8JEXB6LriQTo9r6OrW99l6aRnhuuXuxtgWIvG1kaQvMFXXHw61ZqigzFCoFiqu6lfeH00NIwQfVxi
 stripe-key: "${STRIPE_KEY}"
