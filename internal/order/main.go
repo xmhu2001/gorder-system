@@ -40,6 +40,8 @@ func main() {
 		_ = deregisterFunc()
 	}()
 
+	// 初始化消息队列 -> 移动到 application.go 了
+
 	go server.RunGRPCServer(serviceName, func(s *grpc.Server) {
 		svc := ports.NewGRPCServer(application)
 		orderpb.RegisterOrderServiceServer(s, svc)
