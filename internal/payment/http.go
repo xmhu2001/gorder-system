@@ -13,7 +13,7 @@ func NewPaymentHandler() *PaymentHandler {
 }
 
 func (h *PaymentHandler) RegisterRoutes(c *gin.Engine) {
-	c.POST("api/webhook", h.HandleWebhook)
+	c.POST("/api/webhook", h.HandleWebhook)
 }
 
 func (h *PaymentHandler) HandleWebhook(context *gin.Context) {

@@ -8,8 +8,8 @@ import (
 )
 
 type GetCustomerOrder struct {
-	CustomerId string `json:"customer_id"`
-	OrderId    string `json:"order_id"`
+	CustomerID string `json:"CustomerID"`
+	OrderID    string `json:"OrderID"`
 }
 
 type GetCustomerOrderHandler decorator.QueryHandler[GetCustomerOrder, *domain.Order]
@@ -19,7 +19,7 @@ type getCustomerOrderHandler struct {
 }
 
 func (g getCustomerOrderHandler) Handle(ctx context.Context, query GetCustomerOrder) (*domain.Order, error) {
-	o, err := g.orderRepo.Get(ctx, query.OrderId, query.CustomerId)
+	o, err := g.orderRepo.Get(ctx, query.OrderID, query.CustomerID)
 	if err != nil {
 		return nil, err
 	}

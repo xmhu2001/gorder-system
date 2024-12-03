@@ -27,13 +27,13 @@ func (H HTTPServer) PostCustomerCustomerIDOrders(c *gin.Context, customerID stri
 		c.JSON(200, gin.H{"error": err})
 		return
 	}
-	c.JSON(200, gin.H{"customer_id": req.CustomerID, "order_id": r.OrderID, "msg": "success"})
+	c.JSON(200, gin.H{"CustomerID": req.CustomerID, "OrderID": r.OrderID, "msg": "success"})
 }
 
 func (H HTTPServer) GetCustomerCustomerIDOrdersOrderID(c *gin.Context, customerID string, orderID string) {
 	o, err := H.app.Queries.GetCustomerOrder.Handle(c, query.GetCustomerOrder{
-		OrderId:    orderID,
-		CustomerId: customerID,
+		OrderID:    orderID,
+		CustomerID: customerID,
 	})
 	if err != nil {
 		c.JSON(200, gin.H{"error": err})

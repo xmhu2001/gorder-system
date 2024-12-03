@@ -38,8 +38,8 @@ func (G GRPCServer) CreateOrder(ctx context.Context, request *orderpb.CreateOrde
 
 func (G GRPCServer) GetOrder(ctx context.Context, request *orderpb.GetOrderRequest) (*orderpb.Order, error) {
 	o, err := G.app.Queries.GetCustomerOrder.Handle(ctx, query.GetCustomerOrder{
-		CustomerId: request.CustomerID,
-		OrderId:    request.OrderID,
+		CustomerID: request.CustomerID,
+		OrderID:    request.OrderID,
 	})
 	if err != nil {
 		return nil, status.Error(codes.NotFound, err.Error())

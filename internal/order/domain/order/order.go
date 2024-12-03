@@ -7,14 +7,14 @@ import (
 
 type Order struct {
 	ID          string          `json:"id"`
-	CustomerID  string          `json:"customer_id"`
-	Status      string          `json:"status"`
-	PaymentLink string          `json:"payment_link"`
-	Items       []*orderpb.Item `json:"items"`
+	CustomerID  string          `json:"CustomerID"`
+	Status      string          `json:"Status"`
+	PaymentLink string          `json:"PaymentLink"`
+	Items       []*orderpb.Item `json:"Items"`
 }
 
 // 业务逻辑写在domain
-func NewOrder(id, customerID, status, paymentlink string, items []*orderpb.Item) (*Order, error) {
+func NewOrder(id, customerID, status, paymentLink string, items []*orderpb.Item) (*Order, error) {
 	if id == "" {
 		return nil, errors.New("id is required")
 	}
@@ -31,7 +31,7 @@ func NewOrder(id, customerID, status, paymentlink string, items []*orderpb.Item)
 		ID:          id,
 		CustomerID:  customerID,
 		Status:      status,
-		PaymentLink: paymentlink,
+		PaymentLink: paymentLink,
 		Items:       items,
 	}, nil
 }
