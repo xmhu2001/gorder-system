@@ -48,6 +48,8 @@ func main() {
 	})
 	// server 接受一个 app 作为胶水层，把handler等都粘合起来
 	server.RunHTTPServer(serviceName, func(router *gin.Engine) {
+		// router.StaticFile 第一个参数相对路径指的是相对路由的路径
+		router.StaticFile("/success", "../../public/success.html")
 		ports.RegisterHandlersWithOptions(router, HTTPServer{
 			app: application,
 		}, ports.GinServerOptions{

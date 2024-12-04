@@ -53,10 +53,10 @@ func (m *MemoryOrderRepository) Create(_ context.Context, order *domain.Order) (
 func (m *MemoryOrderRepository) Get(_ context.Context, id, customerID string) (*domain.Order, error) {
 	m.lock.RLock() // get 只需要加 读 锁
 	defer m.lock.RUnlock()
-	logrus.Debug("store: %v", m.store)
+	logrus.Debugf("store: %v", m.store)
 	for _, order := range m.store {
 		if order.ID == id && customerID == order.CustomerID {
-			logrus.Debug("memory_order_repo_get || found || id=%s || customerID=%s || res=%v", order.ID, order.CustomerID, *order)
+			logrus.Debugf("memory_order_repo_get || found || id=%s || customerID=%s || res=%v", order.ID, order.CustomerID, *order)
 			return order, nil
 		}
 	}

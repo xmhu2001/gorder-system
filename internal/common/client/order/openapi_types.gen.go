@@ -31,7 +31,7 @@ type ItemWithQuantity struct {
 // Order defines model for Order.
 type Order struct {
 	CustomerID  *string `json:"customerID,omitempty"`
-	Id          *string `json:"id,omitempty"`
+	ID          *string `json:"ID,omitempty"`
 	Items       *[]Item `json:"items,omitempty"`
 	PaymentLink *string `json:"paymentLink,omitempty"`
 	Status      *string `json:"status,omitempty"`

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
 	"github.com/xmhu2001/gorder-system/order/app"
@@ -27,7 +28,7 @@ func (H HTTPServer) PostCustomerCustomerIDOrders(c *gin.Context, customerID stri
 		c.JSON(200, gin.H{"error": err})
 		return
 	}
-	c.JSON(200, gin.H{"CustomerID": req.CustomerID, "OrderID": r.OrderID, "msg": "success"})
+	c.JSON(200, gin.H{"message": "success", "CustomerID": req.CustomerID, "OrderID": r.OrderID, "redirect_url": fmt.Sprintf("http://localhost:8080/success?customerID=%s&orderID=%s", req.CustomerID, r.OrderID)})
 }
 
 func (H HTTPServer) GetCustomerCustomerIDOrdersOrderID(c *gin.Context, customerID string, orderID string) {
@@ -39,5 +40,10 @@ func (H HTTPServer) GetCustomerCustomerIDOrdersOrderID(c *gin.Context, customerI
 		c.JSON(200, gin.H{"error": err})
 		return
 	}
-	c.JSON(200, gin.H{"msg": "success", "data": o})
+	c.JSON(200, gin.H{
+		"msg": "success",
+		"data": gin.H{
+			"Order": o,
+		},
+	})
 }
