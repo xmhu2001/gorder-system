@@ -2,6 +2,8 @@ package order
 
 import (
 	"errors"
+	"fmt"
+	"github.com/stripe/stripe-go/v81"
 	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
 )
 
@@ -44,4 +46,11 @@ func (o *Order) ToProto() *orderpb.Order {
 		Items:       o.Items,
 		PaymentLink: o.PaymentLink,
 	}
+}
+
+func (o *Order) IsPaid() error {
+	if o.Status == string(stripe.CheckoutSessionPaymentStatusPaid) {
+		return nil
+	}
+	return fmt.Errorf("order status not paid, order status=%s, order id=%s", o.Status, o.ID)
 }

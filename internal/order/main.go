@@ -5,11 +5,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	"github.com/xmhu2001/gorder-system/common/broker"
 	"github.com/xmhu2001/gorder-system/common/config"
 	"github.com/xmhu2001/gorder-system/common/discovery"
 	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
 	"github.com/xmhu2001/gorder-system/common/logging"
 	"github.com/xmhu2001/gorder-system/common/server"
+	"github.com/xmhu2001/gorder-system/order/infrastructure/consumer"
 	"github.com/xmhu2001/gorder-system/order/ports"
 	"github.com/xmhu2001/gorder-system/order/service"
 	"google.golang.org/grpc"
@@ -39,6 +41,18 @@ func main() {
 	defer func() {
 		_ = deregisterFunc()
 	}()
+
+	ch, closeConn := broker.Connect(
+		viper.GetString("rabbitmq.user"),
+		viper.GetString("rabbitmq.password"),
+		viper.GetString("rabbitmq.host"),
+		viper.GetString("rabbitmq.port"),
+	)
+	defer func() {
+		_ = closeConn()
+		_ = ch.Close()
+	}()
+	go consumer.NewConsumer(application).Listen(ch)
 
 	// 初始化消息队列 -> 移动到 application.go 了
 

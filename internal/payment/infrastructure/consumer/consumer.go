@@ -51,7 +51,7 @@ func (c *Consumer) HandleMessage(msg amqp.Delivery, q amqp.Queue, ch *amqp.Chann
 		_ = msg.Nack(false, false)
 		return
 	}
-	logrus.Infof("--------create payment link for customer: %v success", o)
+	logrus.Infof("create payment link for customer: %v success", o)
 	if _, err := c.app.Commands.CreatePayment.Handle(context.TODO(), command.CreatePayment{
 		Order: o,
 	}); err != nil {

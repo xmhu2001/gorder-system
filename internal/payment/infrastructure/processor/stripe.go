@@ -21,7 +21,7 @@ func NewStripeProcessor(apiKey string) *StripeProcessor {
 	return &StripeProcessor{apiKey: apiKey}
 }
 
-var (
+const (
 	successURL = "http://localhost:8080/success"
 )
 
