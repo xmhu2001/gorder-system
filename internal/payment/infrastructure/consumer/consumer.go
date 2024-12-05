@@ -3,6 +3,7 @@ package consumer
 import (
 	"context"
 	"encoding/json"
+
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/sirupsen/logrus"
 	"github.com/xmhu2001/gorder-system/common/broker"
@@ -35,14 +36,14 @@ func (c *Consumer) Listen(ch *amqp.Channel) {
 	var forever chan struct{}
 	go func() {
 		for msg := range msgs {
-			c.HandleMessage(msg, q, ch)
+			c.HandleMessage(msg, q)
 		}
 	}()
 	// 永远读不到，因此会永远阻塞，以读取消息
 	<-forever
 }
 
-func (c *Consumer) HandleMessage(msg amqp.Delivery, q amqp.Queue, ch *amqp.Channel) {
+func (c *Consumer) HandleMessage(msg amqp.Delivery, q amqp.Queue) {
 	logrus.Infof("Payment received a message: %s from %s", string(msg.Body), q.Name)
 
 	o := &orderpb.Order{}
