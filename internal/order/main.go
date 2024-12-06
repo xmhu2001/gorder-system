@@ -11,6 +11,7 @@ import (
 	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
 	"github.com/xmhu2001/gorder-system/common/logging"
 	"github.com/xmhu2001/gorder-system/common/server"
+	"github.com/xmhu2001/gorder-system/common/tracing"
 	"github.com/xmhu2001/gorder-system/order/infrastructure/consumer"
 	"github.com/xmhu2001/gorder-system/order/ports"
 	"github.com/xmhu2001/gorder-system/order/service"
@@ -30,6 +31,13 @@ func main() {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+
+	shutdown, err := tracing.InitJaegerProvider(viper.GetString("jaeger.url"), serviceName)
+	if err != nil {
+		logrus.Fatal(err)
+	}
+	defer shutdown(ctx)
+
 	application, cleanup := service.NewApplication(ctx)
 	// 在主函数里defer 关闭所有连接
 	defer cleanup()

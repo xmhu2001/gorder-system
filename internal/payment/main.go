@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/xmhu2001/gorder-system/common/tracing"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -24,9 +25,16 @@ func init() {
 // 2. 消费这个消息后, 去 handleMessage(), 在这里创建支付链接
 
 func main() {
+	serviceName := viper.GetString("payment.service-name")
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	serverType := viper.GetString("payment.server-to-run")
+
+	shutdown, err := tracing.InitJaegerProvider(viper.GetString("jaeger.url"), serviceName)
+	if err != nil {
+		logrus.Fatal(err)
+	}
+	defer shutdown(ctx)
 
 	application, cleanup := service.NewApplication(ctx)
 	defer cleanup()
@@ -48,7 +56,7 @@ func main() {
 	paymentHandler := NewPaymentHandler(ch)
 	switch serverType {
 	case "http":
-		server.RunHTTPServer(viper.GetString("payment.service-name"), paymentHandler.RegisterRoutes)
+		server.RunHTTPServer(serviceName, paymentHandler.RegisterRoutes)
 	case "grpc":
 		logrus.Panic("unsupported type grpc") // 还会一层一层执行调用栈内地一些defer函数，Fatal则是直接退出
 	default:
