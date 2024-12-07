@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/xmhu2001/gorder-system/common/tracing"
 
 	"github.com/stripe/stripe-go/v81"
 	"github.com/stripe/stripe-go/v81/checkout/session"
@@ -28,6 +29,9 @@ const (
 
 func (s StripeProcessor) CreatePaymentLink(ctx context.Context, order *orderpb.Order) (string, error) {
 	// https://docs.stripe.com/payments/checkout/how-checkout-works?lang=go
+	_, span := tracing.Start(ctx, "stripe_processor.create_payment_link")
+	defer span.End()
+
 	var items []*stripe.CheckoutSessionLineItemParams
 	for _, item := range order.Items {
 		items = append(items, &stripe.CheckoutSessionLineItemParams{
