@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
-	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
+	client "github.com/xmhu2001/gorder-system/common/client/order"
 	"github.com/xmhu2001/gorder-system/common/tracing"
 	"github.com/xmhu2001/gorder-system/order/app"
 	"github.com/xmhu2001/gorder-system/order/app/command"
 	"github.com/xmhu2001/gorder-system/order/app/query"
-	"net/http"
 )
 
 type HTTPServer struct {
@@ -19,7 +20,7 @@ func (H HTTPServer) PostCustomerCustomerIDOrders(c *gin.Context, customerID stri
 	ctx, span := tracing.Start(c, "PostCustomerCustomerIDOrders")
 	defer span.End()
 
-	var req orderpb.CreateOrderRequest
+	var req client.CreateOrderRequest
 	if err := c.ShouldBind(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

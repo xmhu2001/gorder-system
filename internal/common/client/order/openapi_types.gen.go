@@ -5,8 +5,8 @@ package order
 
 // CreateOrderRequest defines model for CreateOrderRequest.
 type CreateOrderRequest struct {
-	CustomerID string             `json:"customerID"`
-	Items      []ItemWithQuantity `json:"items"`
+	CustomerID string             `json:"CustomerID"`
+	Items      []ItemWithQuantity `json:"Items"`
 }
 
 // Error defines model for Error.
