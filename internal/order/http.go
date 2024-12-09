@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	client "github.com/xmhu2001/gorder-system/common/client/order"
+	"github.com/xmhu2001/gorder-system/order/convertor"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	client "github.com/xmhu2001/gorder-system/common/client/order"
 	"github.com/xmhu2001/gorder-system/common/tracing"
 	"github.com/xmhu2001/gorder-system/order/app"
 	"github.com/xmhu2001/gorder-system/order/app/command"
@@ -27,7 +28,7 @@ func (H HTTPServer) PostCustomerCustomerIDOrders(c *gin.Context, customerID stri
 	}
 	r, err := H.app.Commands.CreateOrder.Handle(ctx, command.CreateOrder{
 		CustomerID: req.CustomerID,
-		Items:      req.Items,
+		Items:      convertor.NewItemWithQuantityConvertor().ClientsToEntities(req.Items),
 	})
 	if err != nil {
 		c.JSON(200, gin.H{"error": err})

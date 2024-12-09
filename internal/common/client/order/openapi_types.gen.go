@@ -16,25 +16,25 @@ type Error struct {
 
 // Item defines model for Item.
 type Item struct {
-	Id       *string `json:"id,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	PriceID  *string `json:"priceID,omitempty"`
-	Quantity *int32  `json:"quantity,omitempty"`
+	ID       string `json:"ID"`
+	Name     string `json:"name"`
+	PriceID  string `json:"priceID"`
+	Quantity int32  `json:"quantity"`
 }
 
 // ItemWithQuantity defines model for ItemWithQuantity.
 type ItemWithQuantity struct {
-	Id       *string `json:"id,omitempty"`
-	Quantity *int32  `json:"quantity,omitempty"`
+	ID       string `json:"ID"`
+	Quantity int32  `json:"quantity"`
 }
 
 // Order defines model for Order.
 type Order struct {
-	CustomerID  *string `json:"customerID,omitempty"`
-	ID          *string `json:"ID,omitempty"`
-	Items       *[]Item `json:"items,omitempty"`
-	PaymentLink *string `json:"paymentLink,omitempty"`
-	Status      *string `json:"status,omitempty"`
+	CustomerID  string `json:"customerID"`
+	ID          string `json:"ID"`
+	Items       []Item `json:"items"`
+	PaymentLink string `json:"paymentLink"`
+	Status      string `json:"status"`
 }
 
 // PostCustomerCustomerIDOrdersJSONRequestBody defines body for PostCustomerCustomerIDOrders for application/json ContentType.

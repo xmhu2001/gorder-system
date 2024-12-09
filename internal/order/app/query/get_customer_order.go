@@ -8,8 +8,8 @@ import (
 )
 
 type GetCustomerOrder struct {
-	CustomerID string `json:"CustomerID"`
-	OrderID    string `json:"OrderID"`
+	CustomerID string
+	OrderID    string
 }
 
 type GetCustomerOrderHandler decorator.QueryHandler[GetCustomerOrder, *domain.Order]
