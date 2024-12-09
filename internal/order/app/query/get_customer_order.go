@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/sirupsen/logrus"
 	"github.com/xmhu2001/gorder-system/common/decorator"
+	"github.com/xmhu2001/gorder-system/common/tracing"
 	domain "github.com/xmhu2001/gorder-system/order/domain/order"
 )
 
@@ -19,10 +20,13 @@ type getCustomerOrderHandler struct {
 }
 
 func (g getCustomerOrderHandler) Handle(ctx context.Context, query GetCustomerOrder) (*domain.Order, error) {
+	_, span := tracing.Start(ctx, "getCustomerOrderHandler.Handle")
 	o, err := g.orderRepo.Get(ctx, query.OrderID, query.CustomerID)
 	if err != nil {
 		return nil, err
 	}
+	span.AddEvent("get_order_success")
+	span.End()
 	return o, nil
 }
 
