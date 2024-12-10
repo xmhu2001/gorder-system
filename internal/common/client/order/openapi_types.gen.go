@@ -16,7 +16,7 @@ type Error struct {
 
 // Item defines model for Item.
 type Item struct {
-	ID       string `json:"ID"`
+	ID       string `json:"id"`
 	Name     string `json:"name"`
 	PriceID  string `json:"priceID"`
 	Quantity int32  `json:"quantity"`
@@ -24,14 +24,14 @@ type Item struct {
 
 // ItemWithQuantity defines model for ItemWithQuantity.
 type ItemWithQuantity struct {
-	ID       string `json:"ID"`
+	ID       string `json:"id"`
 	Quantity int32  `json:"quantity"`
 }
 
 // Order defines model for Order.
 type Order struct {
 	CustomerID  string `json:"customerID"`
-	ID          string `json:"ID"`
+	ID          string `json:"id"`
 	Items       []Item `json:"items"`
 	PaymentLink string `json:"paymentLink"`
 	Status      string `json:"status"`

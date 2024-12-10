@@ -5,7 +5,7 @@ package ports
 
 // CreateOrderRequest defines model for CreateOrderRequest.
 type CreateOrderRequest struct {
-	CustomerID string             `json:"customerID"`
+	CustomerID string             `json:"customer_id"`
 	Items      []ItemWithQuantity `json:"items"`
 }
 
@@ -16,24 +16,24 @@ type Error struct {
 
 // Item defines model for Item.
 type Item struct {
-	ID       string `json:"ID"`
+	ID       string `json:"id"`
 	Name     string `json:"name"`
-	PriceID  string `json:"priceID"`
+	PriceID  string `json:"price_id"`
 	Quantity int32  `json:"quantity"`
 }
 
 // ItemWithQuantity defines model for ItemWithQuantity.
 type ItemWithQuantity struct {
-	ID       string `json:"ID"`
+	ID       string `json:"id"`
 	Quantity int32  `json:"quantity"`
 }
 
 // Order defines model for Order.
 type Order struct {
-	CustomerID  string `json:"customerID"`
-	ID          string `json:"ID"`
+	CustomerID  string `json:"customer_id"`
+	ID          string `json:"id"`
 	Items       []Item `json:"items"`
-	PaymentLink string `json:"paymentLink"`
+	PaymentLink string `json:"payment_link"`
 	Status      string `json:"status"`
 }
 
