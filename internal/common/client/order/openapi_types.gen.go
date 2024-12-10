@@ -6,7 +6,7 @@ package order
 // CreateOrderRequest defines model for CreateOrderRequest.
 type CreateOrderRequest struct {
 	CustomerID string             `json:"CustomerID"`
-	Items      []ItemWithQuantity `json:"Items"`
+	Items      []ItemWithQuantity `json:"items"`
 }
 
 // Error defines model for Error.
@@ -18,7 +18,7 @@ type Error struct {
 type Item struct {
 	ID       string `json:"id"`
 	Name     string `json:"name"`
-	PriceID  string `json:"priceID"`
+	PriceID  string `json:"price_id"`
 	Quantity int32  `json:"quantity"`
 }
 
@@ -30,10 +30,10 @@ type ItemWithQuantity struct {
 
 // Order defines model for Order.
 type Order struct {
-	CustomerID  string `json:"customerID"`
+	CustomerID  string `json:"customer_id"`
 	ID          string `json:"id"`
 	Items       []Item `json:"items"`
-	PaymentLink string `json:"paymentLink"`
+	PaymentLink string `json:"payment_link"`
 	Status      string `json:"status"`
 }
 

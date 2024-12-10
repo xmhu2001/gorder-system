@@ -12,9 +12,9 @@ type Processor interface {
 }
 
 type Order struct {
-	ID          string          `json:"ID"`
-	CustomerID  string          `json:"CustomerID"`
-	Status      string          `json:"Status"`
-	PaymentLink string          `json:"PaymentLink"`
-	Items       []*orderpb.Item `json:"Items"`
+	ID          string
+	CustomerID  string
+	Status      string
+	PaymentLink string
+	Items       []*orderpb.Item
 }
