@@ -14,10 +14,10 @@ import (
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 
-	// (POST /customer/{customerID}/orders)
+	// (POST /customer/{customer_id}/orders)
 	PostCustomerCustomerIDOrders(c *gin.Context, customerID string)
 
-	// (GET /customer/{customerID}/orders/{orderID})
+	// (GET /customer/{customer_id}/orders/{order_id})
 	GetCustomerCustomerIDOrdersOrderID(c *gin.Context, customerID string, orderID string)
 }
 
@@ -35,12 +35,12 @@ func (siw *ServerInterfaceWrapper) PostCustomerCustomerIDOrders(c *gin.Context) 
 
 	var err error
 
-	// ------------- Path parameter "customerID" -------------
+	// ------------- Path parameter "customer_id" -------------
 	var customerID string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "customerID", c.Param("customerID"), &customerID, runtime.BindStyledParameterOptions{Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "customeID", c.Param("customerID"), &customerID, runtime.BindStyledParameterOptions{Explode: false, Required: true})
 	if err != nil {
-		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter customerID: %w", err), http.StatusBadRequest)
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter customer_id: %w", err), http.StatusBadRequest)
 		return
 	}
 
@@ -59,21 +59,21 @@ func (siw *ServerInterfaceWrapper) GetCustomerCustomerIDOrdersOrderID(c *gin.Con
 
 	var err error
 
-	// ------------- Path parameter "customerID" -------------
+	// ------------- Path parameter "customer_id" -------------
 	var customerID string
 
 	err = runtime.BindStyledParameterWithOptions("simple", "customerID", c.Param("customerID"), &customerID, runtime.BindStyledParameterOptions{Explode: false, Required: true})
 	if err != nil {
-		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter customerID: %w", err), http.StatusBadRequest)
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter customer_id: %w", err), http.StatusBadRequest)
 		return
 	}
 
-	// ------------- Path parameter "orderID" -------------
+	// ------------- Path parameter "order_id" -------------
 	var orderID string
 
 	err = runtime.BindStyledParameterWithOptions("simple", "orderID", c.Param("orderID"), &orderID, runtime.BindStyledParameterOptions{Explode: false, Required: true})
 	if err != nil {
-		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter orderID: %w", err), http.StatusBadRequest)
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter order_id: %w", err), http.StatusBadRequest)
 		return
 	}
 
