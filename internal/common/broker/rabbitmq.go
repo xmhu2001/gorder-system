@@ -5,6 +5,8 @@ import (
 	"fmt"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
+	_ "github.com/xmhu2001/gorder-system/common/config"
 	"go.opentelemetry.io/otel"
 	"time"
 )
@@ -16,7 +18,7 @@ const (
 )
 
 var (
-	maxRetryCount int64 = 3
+	maxRetryCount = viper.GetInt64("rabbitmq.max-retry")
 )
 
 // rabbitmq相关初始化

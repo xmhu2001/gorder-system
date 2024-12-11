@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"github.com/xmhu2001/gorder-system/common/broker"
-	"github.com/xmhu2001/gorder-system/common/config"
+	_ "github.com/xmhu2001/gorder-system/common/config"
 	"github.com/xmhu2001/gorder-system/common/logging"
 	"github.com/xmhu2001/gorder-system/common/server"
 	"github.com/xmhu2001/gorder-system/payment/infrastructure/consumer"
@@ -16,9 +16,6 @@ import (
 
 func init() {
 	logging.Init()
-	if err := config.NewViperConfig(); err != nil {
-		logrus.Fatal(err)
-	}
 }
 
 // 1. consumer listen EventOrderCreated 事件 （consumer.go）

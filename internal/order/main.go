@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"github.com/xmhu2001/gorder-system/common/broker"
-	"github.com/xmhu2001/gorder-system/common/config"
+	_ "github.com/xmhu2001/gorder-system/common/config"
 	"github.com/xmhu2001/gorder-system/common/discovery"
 	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
 	"github.com/xmhu2001/gorder-system/common/logging"
@@ -16,14 +16,10 @@ import (
 	"github.com/xmhu2001/gorder-system/order/ports"
 	"github.com/xmhu2001/gorder-system/order/service"
 	"google.golang.org/grpc"
-	"log"
 )
 
 func init() {
 	logging.Init()
-	if err := config.NewViperConfig(); err != nil {
-		log.Fatal(err)
-	}
 }
 
 func main() {

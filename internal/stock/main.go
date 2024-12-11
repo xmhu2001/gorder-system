@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"github.com/xmhu2001/gorder-system/common/config"
+	_ "github.com/xmhu2001/gorder-system/common/config"
 	"github.com/xmhu2001/gorder-system/common/discovery"
 	"github.com/xmhu2001/gorder-system/common/genproto/stockpb"
 	"github.com/xmhu2001/gorder-system/common/logging"
@@ -17,10 +17,8 @@ import (
 
 func init() {
 	logging.Init()
-	if err := config.NewViperConfig(); err != nil {
-		logrus.Fatal(err)
-	}
 }
+
 func main() {
 	serviceName := viper.GetString("stock.service-name")
 	serverType := viper.GetString("stock.server-to-run")
