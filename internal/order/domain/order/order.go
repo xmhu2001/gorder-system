@@ -39,6 +39,20 @@ func NewOrder(id, customerID, status, paymentLink string, items []*entity.Item) 
 	}, nil
 }
 
+func NewPendingOrder(customerID string, items []*entity.Item) (*Order, error) {
+	if customerID == "" {
+		return nil, errors.New("customerID is required")
+	}
+	if items == nil {
+		return nil, errors.New("items is required")
+	}
+	return &Order{
+		CustomerID: customerID,
+		Status:     "pending",
+		Items:      items,
+	}, nil
+}
+
 func (o *Order) IsPaid() error {
 	if o.Status == string(stripe.CheckoutSessionPaymentStatusPaid) {
 		return nil
