@@ -2,6 +2,7 @@ package ports
 
 import (
 	"context"
+	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/sirupsen/logrus"
 	"github.com/xmhu2001/gorder-system/order/app"
 	"github.com/xmhu2001/gorder-system/order/app/command"
@@ -34,7 +35,7 @@ func (G GRPCServer) CreateOrder(ctx context.Context, request *orderpb.CreateOrde
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
-	return &emptypb.Empty{}, nil
+	return &empty.Empty{}, nil
 }
 
 func (G GRPCServer) GetOrder(ctx context.Context, request *orderpb.GetOrderRequest) (*orderpb.Order, error) {

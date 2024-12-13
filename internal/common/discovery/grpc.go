@@ -10,8 +10,7 @@ import (
 	"time"
 )
 
-func RegisterToConsul(serviceName string) (func() error, error) {
-	ctx := context.Background()
+func RegisterToConsul(ctx context.Context, serviceName string) (func() error, error) {
 	registry, err := consul.New(viper.GetString("consul.addr"))
 	if err != nil {
 		return func() error { return nil }, err
@@ -35,7 +34,7 @@ func RegisterToConsul(serviceName string) (func() error, error) {
 		"instanceID":  instanceID,
 	}).Info("register to consul")
 	return func() error {
-		return registry.Deregister(ctx, instanceID, serviceName, grpcAddr)
+		return registry.Deregister(ctx, instanceID, serviceName)
 	}, nil
 }
 

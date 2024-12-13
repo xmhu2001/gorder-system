@@ -18,7 +18,7 @@ type HTTPServer struct {
 	common.BaseResponse
 }
 
-func (H HTTPServer) PostCustomerCustomerIDOrders(c *gin.Context, customerID string) {
+func (H HTTPServer) PostCustomerCustomerIdOrders(c *gin.Context, customerID string) {
 	var (
 		err  error
 		req  client.CreateOrderRequest
@@ -27,11 +27,11 @@ func (H HTTPServer) PostCustomerCustomerIDOrders(c *gin.Context, customerID stri
 	defer func() {
 		H.Response(c, err, &resp)
 	}()
-	if err = c.ShouldBind(&req); err != nil {
+	if err = c.ShouldBindJSON(&req); err != nil {
 		return
 	}
 	r, err := H.app.Commands.CreateOrder.Handle(c.Request.Context(), command.CreateOrder{
-		CustomerID: req.CustomerID,
+		CustomerID: req.CustomerId,
 		Items:      convertor.NewItemWithQuantityConvertor().ClientsToEntities(req.Items),
 	})
 	if err != nil {
@@ -40,20 +40,18 @@ func (H HTTPServer) PostCustomerCustomerIDOrders(c *gin.Context, customerID stri
 	//c.JSON(200, gin.H{"message": "success", "trace_id": tracing.TraceID(c.Request.Context()), "customer_id": req.CustomerID, "order_id": r.OrderID, "redirect_url": fmt.Sprintf("http://localhost:8080/success?customerID=%s&orderID=%s", req.CustomerID, r.OrderID)})
 	resp = dto.CreateOrderResponse{
 		OrderID:     r.OrderID,
-		CustomerID:  req.CustomerID,
-		RedirectURL: fmt.Sprintf("http://localhost:8080/success?customerID=%s&orderID=%s", req.CustomerID, r.OrderID),
+		CustomerID:  req.CustomerId,
+		RedirectURL: fmt.Sprintf("http://localhost:8080/success?customerID=%s&orderID=%s", req.CustomerId, r.OrderID),
 	}
 }
 
-func (H HTTPServer) GetCustomerCustomerIDOrdersOrderID(c *gin.Context, customerID string, orderID string) {
+func (H HTTPServer) GetCustomerCustomerIdOrdersOrderId(c *gin.Context, customerID string, orderID string) {
 	var (
 		err  error
-		resp struct {
-			Order *client.Order
-		}
+		resp interface{}
 	)
 	defer func() {
-		H.Response(c, err, &resp)
+		H.Response(c, err, resp)
 	}()
 
 	o, err := H.app.Queries.GetCustomerOrder.Handle(c.Request.Context(), query.GetCustomerOrder{
@@ -63,5 +61,5 @@ func (H HTTPServer) GetCustomerCustomerIDOrdersOrderID(c *gin.Context, customerI
 	if err != nil {
 		return
 	}
-	resp.Order = convertor.NewOrderConvertor().EntityToClient(o)
+	resp = convertor.NewOrderConvertor().EntityToClient(o)
 }

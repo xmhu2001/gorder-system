@@ -69,7 +69,7 @@ func createDLX(ch *amqp.Channel) error {
 }
 
 func HandleRetry(ctx context.Context, ch *amqp.Channel, d *amqp.Delivery) error {
-	if d == nil {
+	if d.Headers == nil {
 		d.Headers = amqp.Table{}
 	}
 	retryCount, ok := d.Headers[amqpRetryHeaderKey].(int64)

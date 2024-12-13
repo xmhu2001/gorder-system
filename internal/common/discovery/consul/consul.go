@@ -61,7 +61,7 @@ func (r *Registry) Register(_ context.Context, instanceID, serviceName, hostPort
 	})
 }
 
-func (r *Registry) Deregister(_ context.Context, instanceID, serviceName, hostPort string) error {
+func (r *Registry) Deregister(_ context.Context, instanceID, serviceName string) error {
 	logrus.WithFields(logrus.Fields{
 		"instanceID":  instanceID,
 		"serviceName": serviceName,

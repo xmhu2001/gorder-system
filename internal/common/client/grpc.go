@@ -25,7 +25,7 @@ func NewStockGRPCClient(ctx context.Context) (client stockpb.StockServiceClient,
 		return nil, func() error { return nil }, err
 	}
 	if grpcAddr == "" {
-		logrus.Warnf("no grpc addr found for stock grpc")
+		logrus.Warn("no grpc addr found for stock grpc")
 	}
 
 	opts := grpcDialOpts(grpcAddr)
@@ -45,7 +45,7 @@ func NewOrderGRPCClient(ctx context.Context) (client orderpb.OrderServiceClient,
 		return nil, func() error { return nil }, err
 	}
 	if grpcAddr == "" {
-		logrus.Warnf("no grpc addr found for order grpc")
+		logrus.Warn("no grpc addr found for order grpc")
 	}
 
 	opts := grpcDialOpts(grpcAddr)

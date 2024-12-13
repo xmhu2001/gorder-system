@@ -24,7 +24,7 @@ func (base *BaseResponse) Response(c *gin.Context, err error, data interface{}) 
 	}
 }
 
-func (base *BaseResponse) success(c *gin.Context, data any) {
+func (base *BaseResponse) success(c *gin.Context, data interface{}) {
 	c.JSON(http.StatusOK, response{
 		Errno:   0,
 		Message: "success",

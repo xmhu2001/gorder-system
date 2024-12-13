@@ -11,6 +11,7 @@ require (
 	github.com/spf13/viper v1.19.0
 	github.com/stripe/stripe-go/v81 v81.1.0
 	github.com/xmhu2001/gorder-system/common v0.0.0-00010101000000-000000000000
+	go.opentelemetry.io/otel v1.32.0
 )
 
 require (
@@ -68,7 +69,6 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin v0.57.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.49.0 // indirect
 	go.opentelemetry.io/contrib/propagators/b3 v1.32.0 // indirect
-	go.opentelemetry.io/otel v1.32.0 // indirect
 	go.opentelemetry.io/otel/exporters/jaeger v1.17.0 // indirect
 	go.opentelemetry.io/otel/metric v1.32.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.32.0 // indirect

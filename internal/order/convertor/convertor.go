@@ -8,7 +8,6 @@ import (
 )
 
 // 单例模式
-
 type OrderConvertor struct {
 }
 
@@ -17,7 +16,6 @@ type ItemConvertor struct{}
 type ItemWithQuantityConvertor struct{}
 
 // []*Foo 不能被 []*interface{} 接收
-
 func (c *OrderConvertor) EntityToProto(o *domain.Order) *orderpb.Order {
 	c.check(o)
 	return &orderpb.Order{
@@ -43,8 +41,8 @@ func (c *OrderConvertor) ProtoToEntity(o *orderpb.Order) *domain.Order {
 func (c *OrderConvertor) ClientToEntity(o *client.Order) *domain.Order {
 	c.check(o)
 	return &domain.Order{
-		ID:          o.ID,
-		CustomerID:  o.CustomerID,
+		ID:          o.Id,
+		CustomerID:  o.CustomerId,
 		Status:      o.Status,
 		Items:       NewItemConvertor().ClientsToEntities(o.Items),
 		PaymentLink: o.PaymentLink,
@@ -54,8 +52,8 @@ func (c *OrderConvertor) ClientToEntity(o *client.Order) *domain.Order {
 func (c *OrderConvertor) EntityToClient(o *domain.Order) *client.Order {
 	c.check(o)
 	return &client.Order{
-		ID:          o.ID,
-		CustomerID:  o.CustomerID,
+		Id:          o.ID,
+		CustomerId:  o.CustomerID,
 		Status:      o.Status,
 		Items:       NewItemConvertor().EntitiesToClients(o.Items),
 		PaymentLink: o.PaymentLink,
@@ -116,18 +114,18 @@ func (c *ItemConvertor) ProtoToEntity(item *orderpb.Item) *entity.Item {
 
 func (c *ItemConvertor) ClientToEntity(item client.Item) *entity.Item {
 	return &entity.Item{
-		ID:       item.ID,
+		ID:       item.Id,
 		Name:     item.Name,
 		Quantity: item.Quantity,
-		PriceID:  item.PriceID,
+		PriceID:  item.PriceId,
 	}
 }
 
 func (c *ItemConvertor) EntityToClient(item *entity.Item) client.Item {
 	return client.Item{
-		ID:       item.ID,
+		Id:       item.ID,
 		Name:     item.Name,
-		PriceID:  item.PriceID,
+		PriceId:  item.PriceID,
 		Quantity: item.Quantity,
 	}
 }
@@ -169,7 +167,7 @@ func (c *ItemWithQuantityConvertor) ClientsToEntities(items []client.ItemWithQua
 
 func (c *ItemWithQuantityConvertor) ClientToEntity(item client.ItemWithQuantity) *entity.ItemWithQuantity {
 	return &entity.ItemWithQuantity{
-		ID:       item.ID,
+		ID:       item.Id,
 		Quantity: item.Quantity,
 	}
 }

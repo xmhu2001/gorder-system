@@ -28,10 +28,10 @@ func NewPaymentHandler(ch *amqp.Channel) *PaymentHandler {
 }
 
 func (h *PaymentHandler) RegisterRoutes(c *gin.Engine) {
-	c.POST("/api/webhook", h.HandleWebhook)
+	c.POST("/api/webhook", h.handleWebhook)
 }
 
-func (h *PaymentHandler) HandleWebhook(c *gin.Context) {
+func (h *PaymentHandler) handleWebhook(c *gin.Context) {
 	logrus.Info("Got Webhook from stripe")
 
 	const MaxBodyBytes = int64(65536)
@@ -39,7 +39,7 @@ func (h *PaymentHandler) HandleWebhook(c *gin.Context) {
 	payload, err := io.ReadAll(c.Request.Body)
 	if err != nil {
 		logrus.Infof("Error reading request body: %v\n", err)
-		c.JSON(http.StatusServiceUnavailable, err)
+		c.JSON(http.StatusServiceUnavailable, err.Error())
 		return
 	}
 

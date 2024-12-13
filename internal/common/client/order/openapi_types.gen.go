@@ -5,7 +5,7 @@ package order
 
 // CreateOrderRequest defines model for CreateOrderRequest.
 type CreateOrderRequest struct {
-	CustomerID string             `json:"customer_id"`
+	CustomerId string             `json:"customer_id"`
 	Items      []ItemWithQuantity `json:"items"`
 }
 
@@ -16,27 +16,34 @@ type Error struct {
 
 // Item defines model for Item.
 type Item struct {
-	ID       string `json:"id"`
+	Id       string `json:"id"`
 	Name     string `json:"name"`
-	PriceID  string `json:"price_id"`
+	PriceId  string `json:"price_id"`
 	Quantity int32  `json:"quantity"`
 }
 
 // ItemWithQuantity defines model for ItemWithQuantity.
 type ItemWithQuantity struct {
-	ID       string `json:"id"`
+	Id       string `json:"id"`
 	Quantity int32  `json:"quantity"`
 }
 
 // Order defines model for Order.
 type Order struct {
-	CustomerID  string `json:"customer_id"`
-	ID          string `json:"id"`
+	CustomerId  string `json:"customer_id"`
+	Id          string `json:"id"`
 	Items       []Item `json:"items"`
 	PaymentLink string `json:"payment_link"`
 	Status      string `json:"status"`
 }
 
-// PostCustomerCustomerIDOrdersJSONRequestBody defines body for PostCustomerCustomerIDOrders for application/json ContentType.
-type PostCustomerCustomerIDOrdersJSONRequestBody = CreateOrderRequest
+// Response defines model for Response.
+type Response struct {
+	Data    map[string]interface{} `json:"data"`
+	Errno   int                    `json:"errno"`
+	Message string                 `json:"message"`
+	TraceId string                 `json:"trace_id"`
+}
 
+// PostCustomerCustomerIdOrdersJSONRequestBody defines body for PostCustomerCustomerIdOrders for application/json ContentType.
+type PostCustomerCustomerIdOrdersJSONRequestBody = CreateOrderRequest

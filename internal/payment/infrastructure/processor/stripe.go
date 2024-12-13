@@ -48,7 +48,6 @@ func (s StripeProcessor) CreatePaymentLink(ctx context.Context, order *orderpb.O
 		"items":       string(marshalledItems),
 		"paymentLink": order.PaymentLink,
 	}
-
 	params := &stripe.CheckoutSessionParams{
 		Metadata:   metadata,
 		LineItems:  items,

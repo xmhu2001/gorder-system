@@ -43,7 +43,7 @@ func NewApplication(ctx context.Context) (app.Application, func()) {
 }
 
 func newApplication(_ context.Context, stockGRPC query.StockService, ch *amqp.Channel) app.Application {
-	// orderRepo := adapters.NewMemoryOrderRepository()
+	//orderRepo := adapters.NewMemoryOrderRepository()
 
 	mongoClient := newMongoClient()
 	orderRepo := adapters.NewOrderRepositoryMongo(mongoClient)
@@ -75,7 +75,7 @@ func newMongoClient() *mongo.Client {
 		panic(err)
 	}
 	// readpref.Primary() 主分片
-	if err := c.Ping(ctx, readpref.Primary()); err != nil {
+	if err = c.Ping(ctx, readpref.Primary()); err != nil {
 		panic(err)
 	}
 	return c

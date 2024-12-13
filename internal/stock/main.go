@@ -33,7 +33,7 @@ func main() {
 	defer shutdown(ctx)
 
 	application := service.NewApplication(ctx)
-	deregisterFunc, err := discovery.RegisterToConsul(serviceName)
+	deregisterFunc, err := discovery.RegisterToConsul(ctx, serviceName)
 	if err != nil {
 		logrus.Fatal(err)
 	}

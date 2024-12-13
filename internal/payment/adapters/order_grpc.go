@@ -23,6 +23,6 @@ func (o OrderGRPC) UpdateOrder(ctx context.Context, order *orderpb.Order) error 
 	defer span.End()
 
 	_, err := o.client.UpdateOrder(ctx, order)
-	logrus.Infof("payment_adapter||update_order, err=%v", err)
+	logrus.Infof("payment_adapter||update_order,status: %s", order.Status)
 	return err
 }

@@ -52,7 +52,7 @@ func (r *OrderRepositoryMongo) Create(ctx context.Context, order *domain.Order) 
 	}
 	created = order
 	created.ID = res.InsertedID.(primitive.ObjectID).Hex()
-	return
+	return created, nil
 }
 
 func (r *OrderRepositoryMongo) logWithTag(tag string, err error, result interface{}) {
@@ -81,7 +81,8 @@ func (r *OrderRepositoryMongo) Get(ctx context.Context, id, customerID string) (
 	if read == nil {
 		return nil, domain.NotFoundError{OrderID: id}
 	}
-	return r.unmarshall(read), nil
+	got = r.unmarshal(read)
+	return got, nil
 }
 
 // Update 先查找order，然后 apply updateFn，再写入回去
@@ -98,7 +99,7 @@ func (r *OrderRepositoryMongo) Update(ctx context.Context, order *domain.Order, 
 	defer session.EndSession(ctx)
 
 	if err = session.StartTransaction(); err != nil {
-		return
+		return err
 	}
 	defer func() {
 		if err == nil {
@@ -113,7 +114,7 @@ func (r *OrderRepositoryMongo) Update(ctx context.Context, order *domain.Order, 
 	if err != nil {
 		return
 	}
-	updated, err := updateFn(ctx, oldOrder)
+	updated, err := updateFn(ctx, order)
 	if err != nil {
 		return
 	}
@@ -143,7 +144,7 @@ func (r *OrderRepositoryMongo) marshalToModel(order *domain.Order) *orderModel {
 	}
 }
 
-func (r *OrderRepositoryMongo) unmarshall(read *orderModel) *domain.Order {
+func (r *OrderRepositoryMongo) unmarshal(read *orderModel) *domain.Order {
 	return &domain.Order{
 		ID:          read.MongoID.Hex(),
 		CustomerID:  read.CustomerID,

@@ -38,7 +38,7 @@ func main() {
 	// 在主函数里defer 关闭所有连接
 	defer cleanup()
 
-	deregisterFunc, err := discovery.RegisterToConsul(serviceName)
+	deregisterFunc, err := discovery.RegisterToConsul(ctx, serviceName)
 	if err != nil {
 		logrus.Fatal(err)
 	}
