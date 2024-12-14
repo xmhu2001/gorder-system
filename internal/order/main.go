@@ -53,8 +53,8 @@ func main() {
 		viper.GetString("rabbitmq.port"),
 	)
 	defer func() {
-		_ = closeConn()
 		_ = ch.Close()
+		_ = closeConn()
 	}()
 	go consumer.NewConsumer(application).Listen(ch)
 

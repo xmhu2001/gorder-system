@@ -42,9 +42,12 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
         height: 100vh;
+        padding: 20px;
+    }
+
+    p {
+        margin-bottom: 20px;
     }
 
     .ready-popup {
@@ -53,9 +56,8 @@
         justify-content: center;
         align-items: center;
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
+        top: 20%;
+        left: 30%;
         padding: 20px;
         background-color: cadetblue;
         z-index: 1;
@@ -73,9 +75,8 @@
         justify-content: center;
         align-items: center;
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
+        top: 70%;
+        left: 70%;
         padding: 20px;
         background-color: cadetblue;
         z-index: 1;
@@ -116,25 +117,18 @@
         status: 'pending'
     };
     const getOrder = async() => {
-        let data;
-        try {
-            const resp = await fetch(`/api/customer/${customerID}/orders/${orderID}`);
-            data = await resp.json();
-            console.log("data= ", data);
-        } catch (error) {
-            console.error("请求失败: ", error);
-        }
-        /*
-        {
-            "code": 0;
-            "message": "success",
-            "data": {
-                "Order": {
-                    ...
-                }
-            }
-        }
-         */
+        // let data;
+        // try {
+        //     const resp = await fetch(`/api/customer/${customerID}/orders/${orderID}`);
+        //     data = await resp.json();
+        //     console.log("data= ", data);
+        // } catch (error) {
+        //     console.error("请求失败: ", error);
+        // }
+        const res = await fetch(`/api/customer/${customerID}/orders/${orderID}`);
+        const data = await res.json();
+        console.log("data = ", data)
+
         if(data.data.status === 'waiting_for_payment') {
             order.status = '等待支付...';
             document.getElementById('orderStatus').innerText = order.status;
