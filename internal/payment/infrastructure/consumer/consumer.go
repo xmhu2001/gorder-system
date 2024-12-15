@@ -47,8 +47,8 @@ func (c *Consumer) Listen(ch *amqp.Channel) {
 func (c *Consumer) handleMessage(ch *amqp.Channel, msg amqp.Delivery, q amqp.Queue) {
 	logrus.Infof("Payment received a message: %s from %s", string(msg.Body), q.Name)
 	ctx := broker.ExtractRabbitMQHeaders(context.Background(), msg.Headers)
-	t := otel.Tracer("rabbitmq")
-	_, span := t.Start(ctx, fmt.Sprintf("rabbitmq.%s.consume", q.Name))
+	tr := otel.Tracer("rabbitmq")
+	_, span := tr.Start(ctx, fmt.Sprintf("rabbitmq.%s.consume", q.Name))
 	defer span.End()
 
 	var err error
