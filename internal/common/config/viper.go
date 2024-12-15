@@ -39,13 +39,13 @@ func newViperConfig() error {
 	return viper.ReadInConfig()
 }
 
-func getRelativePathFromCaller() (realPath string, err error) {
+func getRelativePathFromCaller() (relPath string, err error) {
 	callerPwd, err := os.Getwd()
 	if err != nil {
 		return
 	}
 	_, here, _, _ := runtime.Caller(0)
-	realPath, err = filepath.Rel(callerPwd, filepath.Dir(here))
-	fmt.Printf("realpath: %s callerpath: %s curpath: %s\n", realPath, callerPwd, here)
+	relPath, err = filepath.Rel(callerPwd, filepath.Dir(here))
+	fmt.Printf("relpath: %s callerpath: %s curpath: %s\n", relPath, callerPwd, here)
 	return
 }

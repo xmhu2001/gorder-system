@@ -33,7 +33,7 @@ func (base *BaseResponse) success(c *gin.Context, data interface{}) {
 		TraceID: tracing.TraceID(c.Request.Context()),
 	}
 	resp, _ := json.Marshal(r)
-	c.Set("response", resp)
+	c.Set("response", string(resp))
 	c.JSON(http.StatusOK, r)
 }
 
@@ -45,6 +45,6 @@ func (base *BaseResponse) error(c *gin.Context, err error) {
 		TraceID: tracing.TraceID(c.Request.Context()),
 	}
 	resp, _ := json.Marshal(r)
-	c.Set("response", resp)
+	c.Set("response", string(resp))
 	c.JSON(http.StatusOK, r)
 }
