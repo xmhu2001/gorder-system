@@ -21,8 +21,8 @@ payment:
 kitchen:
   service-name: kitchen
   server-to-run: http
-  http-addr: 127.0.0.1:8282
-  grpc-addr: 127.0.0.1:5004
+  http-addr: 127.0.0.1:8083
+  grpc-addr: 127.0.0.1:5005
 
 consul:
   addr: 127.0.0.1:8500
