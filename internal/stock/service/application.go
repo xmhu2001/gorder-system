@@ -8,10 +8,13 @@ import (
 	"github.com/xmhu2001/gorder-system/stock/app"
 	"github.com/xmhu2001/gorder-system/stock/app/query"
 	"github.com/xmhu2001/gorder-system/stock/infrastructure/integration"
+	"github.com/xmhu2001/gorder-system/stock/infrastructure/persistent"
 )
 
 func NewApplication(_ context.Context) app.Application {
-	stockRepo := adapters.NewMemoryStockRepository()
+	//stockRepo := adapters.NewMemoryStockRepository()
+	db := persistent.NewMySQL()
+	stockRepo := adapters.NewMySQLStockRepository(db)
 	stripeAPI := integration.NewStripeAPI()
 	logger := logrus.NewEntry(logrus.StandardLogger())
 	metricClient := metrics.TodoMetrics{}

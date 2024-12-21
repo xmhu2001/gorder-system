@@ -70,6 +70,7 @@ func (c createOrderHandler) Handle(ctx context.Context, cmd CreateOrder) (*Creat
 	// 需要 call stock GRPC to get Items
 	// 因为接收到的参数是用户前端传来的，没有库存信息
 	validItems, err := c.validate(ctx, cmd.Items)
+	logrus.Infof("validItems: %v", validItems)
 	if err != nil {
 		return nil, err
 	}

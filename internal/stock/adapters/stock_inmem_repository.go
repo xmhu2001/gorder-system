@@ -2,14 +2,14 @@ package adapters
 
 import (
 	"context"
-	"github.com/xmhu2001/gorder-system/common/genproto/orderpb"
 	domain "github.com/xmhu2001/gorder-system/stock/domain/stock"
+	"github.com/xmhu2001/gorder-system/stock/entity"
 	"sync"
 )
 
 type MemoryStockRepository struct {
 	lock  *sync.RWMutex
-	store map[string]*orderpb.Item
+	store map[string]*entity.Item
 }
 
 func NewMemoryStockRepository() *MemoryStockRepository {
@@ -19,7 +19,7 @@ func NewMemoryStockRepository() *MemoryStockRepository {
 	}
 }
 
-var stub = map[string]*orderpb.Item{
+var stub = map[string]*entity.Item{
 	"item_1": {
 		ID:       "foo_item",
 		Name:     "stub item",
@@ -40,12 +40,12 @@ var stub = map[string]*orderpb.Item{
 	},
 }
 
-func (m MemoryStockRepository) GetItems(_ context.Context, ids []string) ([]*orderpb.Item, error) {
+func (m MemoryStockRepository) GetItems(_ context.Context, ids []string) ([]*entity.Item, error) {
 	// get 只需要加 读 锁
 	m.lock.RLock()
 	defer m.lock.RUnlock()
 	var (
-		res     []*orderpb.Item
+		res     []*entity.Item
 		missing []string
 	)
 	for _, id := range ids {
